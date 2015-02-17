@@ -17,6 +17,7 @@ namespace ClipboardStack
         {
             InitializeComponent();
             this.registerHotkeys();
+            this.Icon = ClipboardStack.Properties.Resources.icon;
             this.TrayIcon.Icon = ClipboardStack.Properties.Resources.icon;
             this.TrayIcon.Click += new System.EventHandler(TrayIcon_Click);
             this.TrayIcon.Visible = true;
