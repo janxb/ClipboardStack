@@ -25,8 +25,18 @@ namespace ClipboardStack
         private void TrayIcon_Click(object sender, System.EventArgs e)
         {
             this.Visible = !this.Visible;
-            if (this.Visible) this.TopMost = true;
-            this.TopMost = false;
+            if (this.Visible)
+            {
+                this.TopMost = true;
+                this.TopMost = false;
+                this.ShowInTaskbar = true;
+                this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+            }
+            else
+            {
+                this.ShowInTaskbar = false;
+                this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            }
         }
 
         private void registerHotkeys()
@@ -72,6 +82,11 @@ namespace ClipboardStack
                 this.registerHotkeys();
             }
             base.WndProc(ref m);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.Visible = false;
         }
 
 
