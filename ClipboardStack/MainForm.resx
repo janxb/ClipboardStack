@@ -128,6 +128,6 @@ Nachdem ein Element eingefügt wurde, wird es aus der Zwischenablage gelöscht u
 Hotkeys:
 - STRG + C: Standard-Funktion - Kopieren
 - STRG + V: Standard-Funktion - Einfügen
-- STRG + SHIFT + V: Sortiertes Einfügen</value>
+- WIN  + V: Sortiertes Einfügen</value>
   </data>
 </root>

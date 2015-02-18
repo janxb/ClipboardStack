@@ -18,8 +18,10 @@ namespace ClipboardStack
         [DllImport("user32.dll")]
         public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        public const int MOD_CONTROL = 0x0002;
-        public const int MOD_SHIFT = 0x0004;
+        public const int MOD_ALT = 0x1;
+        public const int MOD_CTRL = 0x2;
+        public const int MOD_SHIFT = 0x4;
+        public const int MOD_WIN = 0x8;
         public const int WM_HOTKEY = 0x0312;
     }
 }

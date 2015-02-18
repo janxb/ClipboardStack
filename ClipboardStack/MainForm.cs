@@ -42,9 +42,9 @@ namespace ClipboardStack
 
         private void registerHotkeys()
         {
-            Hotkeys.RegisterHotKey(this.Handle, 1, Hotkeys.MOD_CONTROL, (int)Keys.X);
-            Hotkeys.RegisterHotKey(this.Handle, 2, Hotkeys.MOD_CONTROL, (int)Keys.C);
-            Hotkeys.RegisterHotKey(this.Handle, 3, Hotkeys.MOD_CONTROL + Hotkeys.MOD_SHIFT, (int)Keys.V);
+            Hotkeys.RegisterHotKey(this.Handle, 1, Hotkeys.MOD_CTRL, (int)Keys.X);
+            Hotkeys.RegisterHotKey(this.Handle, 2, Hotkeys.MOD_CTRL, (int)Keys.C);
+            Hotkeys.RegisterHotKey(this.Handle, 3, Hotkeys.MOD_WIN, (int)Keys.V);
         }
 
         private void unregisterHotkeys()
@@ -58,28 +58,32 @@ namespace ClipboardStack
 
         protected override void WndProc(ref Message m)
         {
+            // Cut / Copy
             if (m.Msg == Hotkeys.WM_HOTKEY && ((int)m.WParam == 1 || (int)m.WParam == 2))
             {
                 this.unregisterHotkeys();
-                if ((int)m.WParam == 1) SendKeys.Send("^x");
-                else if ((int)m.WParam == 2) SendKeys.Send("^c");
+                if ((int)m.WParam == 1) SendKeys.SendWait("^x");
+                else if ((int)m.WParam == 2) SendKeys.SendWait("^c");
                 this.registerHotkeys();
                 if (Clipboard.ContainsText())
                     this.stack.Add(Clipboard.GetText());
                 else this.stack.Clear();
             }
+
+            // Paste
             if (m.Msg == Hotkeys.WM_HOTKEY && (int)m.WParam == 3)
             {
                 String text = "";
+                // Only paste if stack is valid
                 if (this.stack.Count > 0 && Clipboard.ContainsText())
                 {
                     text = this.stack[this.stack.Count - 1];
                     this.stack.RemoveAt(this.stack.Count - 1);
                     Clipboard.SetText(text);
                 }
-                
+                // Use Built-In Paste-Action
                 this.unregisterHotkeys();
-                SendKeys.Send("^v");
+                SendKeys.SendWait("^v");
                 this.registerHotkeys();
             }
             base.WndProc(ref m);
