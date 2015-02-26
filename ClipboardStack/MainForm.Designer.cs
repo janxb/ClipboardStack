@@ -37,6 +37,7 @@
             // TrayIcon
             // 
             this.TrayIcon.Visible = true;
+            this.TrayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
             // 
             // label1
             // 
